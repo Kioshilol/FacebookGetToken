@@ -110,7 +110,6 @@
         <Reference Include="Xamarin.iOS" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Plugin.FacebookClient" Version="2.2.1" />
         <PackageReference Include="Xamarin.Facebook.iOS" Version="7.1.1" />
         <PackageReference Include="Xamarin.Forms" Version="4.4.0.991640" />
     </ItemGroup>
