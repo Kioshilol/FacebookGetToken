@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Foundation;
-using Plugin.FacebookClient;
 using UIKit;
 
 namespace App4.iOS
@@ -27,7 +26,6 @@ namespace App4.iOS
 
             Facebook.CoreKit.Profile.EnableUpdatesOnAccessTokenChange(true);           
             Facebook.CoreKit.ApplicationDelegate.SharedInstance.FinishedLaunching(app, options);
-            FacebookClientManager.Initialize(app,options);
             return base.FinishedLaunching(app, options);
         }
         
