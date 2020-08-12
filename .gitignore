@@ -1891,3 +1891,9 @@ App4/App4/obj/Debug/netstandard2.0/App4.AssemblyInfoInputs.cache
 App4/App4/obj/Debug/netstandard2.0/App4.assets.cache
 App4/App4/obj/Debug/netstandard2.0/App4.csprojAssemblyReference.cache
 App4/App4/obj/Debug/netstandard2.0/MainPage.xaml.g.cs
+App4/App4.Android/obj
+App4/App4.iOS/obj
+App4/App4/bin
+.vs
+App4/App4.Android/bin
+App4/App4/obj
