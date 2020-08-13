@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Facebook.CoreKit;
 using Foundation;
 using UIKit;
 
@@ -10,7 +8,7 @@ namespace App4.iOS
     // User Interface of the application, as well as listening (and optionally responding) to 
     // application events from iOS.
     [Register("AppDelegate")]
-    public partial class AppDelegate : global::Xamarin.Forms.Platform.iOS.FormsApplicationDelegate
+    public partial class AppDelegate : UIApplicationDelegate
     {
         //
         // This method is invoked when the application has loaded and is ready to run. In this 
@@ -21,22 +19,22 @@ namespace App4.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
-            global::Xamarin.Forms.Forms.Init();
-            LoadApplication(new App());
+            Settings.AppId = "Insert_Your_App_Id";
+            Settings.DisplayName = "Insert_Your_App_Name";
 
-            Facebook.CoreKit.Profile.EnableUpdatesOnAccessTokenChange(true);           
-            Facebook.CoreKit.ApplicationDelegate.SharedInstance.FinishedLaunching(app, options);
-            return base.FinishedLaunching(app, options);
+            // This is false by default,
+            // If you set true, you can handle the user profile info once is logged into FB with the Profile.Notifications.ObserveDidChange notification,
+            // If you set false, you need to get the user Profile info by hand with a GraphRequest
+            Profile.EnableUpdatesOnAccessTokenChange(false);
+
+            return ApplicationDelegate.SharedInstance.FinishedLaunching(app, options);
         }
         
         public override bool OpenUrl(UIApplication application, NSUrl url, string sourceApplication, NSObject annotation)
         {
-            return Facebook.CoreKit.ApplicationDelegate.SharedInstance.OpenUrl(application, url, sourceApplication, annotation);
+            return ApplicationDelegate.SharedInstance.OpenUrl(application, url, sourceApplication, annotation);
         }
 
-        public override void OnActivated(UIApplication application)
-        {
-            Facebook.CoreKit.AppEvents.ActivateApp();
-        }
+        public override void OnActivated(UIApplication application) => AppEvents.ActivateApp();
     }
 }
