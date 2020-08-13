@@ -40,7 +40,7 @@ namespace App4.iOS
                 _loginResult = new LoginResult
                 {
                     Token = result.Token.TokenString,
-                    UserId = result.Token.UserID,
+                    UserId = result.Token.UserId,
                     ExpireAt = result.Token.ExpirationDate.ToDateTime()
                 };
             }
