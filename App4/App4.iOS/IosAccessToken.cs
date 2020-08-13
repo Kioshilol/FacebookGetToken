@@ -1,12 +1,10 @@
 using System.Threading.Tasks;
 using App4.iOS;
-using CoreGraphics;
 using Facebook.CoreKit;
 using Facebook.LoginKit;
 using Foundation;
 using UIKit;
 using Xamarin.Forms.Platform.iOS;
-using LoginManager = Facebook.LoginKit.LoginManager;
 
 [assembly: Xamarin.Forms.Dependency(typeof(IosAccessToken))]
 namespace App4.iOS
@@ -14,7 +12,7 @@ namespace App4.iOS
     public class IosAccessToken : IAccessToken
     {
         readonly LoginManager _loginManager = new LoginManager();
-        readonly string[] _permissions = { @"public_profile", @"email" };
+        readonly string[] _permissions = { @"public_profile", @"pages_manage_engagement"};
 
         LoginResult _loginResult;
         TaskCompletionSource<LoginResult> _completionSource;
@@ -46,6 +44,23 @@ namespace App4.iOS
                     ExpireAt = result.Token.ExpirationDate.ToDateTime()
                 };
             }
+
+            UIApplication.SharedApplication.OpenUrl(new NSUrl("http://www.facebook.com/looneyinvaders"));
+            
+            var request = new GraphRequest(@"101000795058301", new NSDictionary(@"fields", @"fan_count"));
+            request.Start(GetLikesRequestHandler);
+            
+        }
+        
+        void GetLikesRequestHandler(GraphRequestConnection connection, NSObject result, NSError error)
+        {
+            if (error != null)
+                _completionSource.TrySetResult(new LoginResult { LoginState = LoginState.Failed, ErrorString = error.LocalizedDescription });
+            else
+            {
+                var likes = result.ValueForKey((NSString) "fan_count");
+
+            }
         }
 
         static UIViewController GetCurrentViewController()
@@ -59,7 +74,6 @@ namespace App4.iOS
         public void Get()
         {
             var login = Login();
-            var tok = Facebook.CoreKit.AccessToken.CurrentAccessToken;
         }
     }
 }
